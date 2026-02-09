@@ -12,24 +12,24 @@ type (
 
 	// Служебные поля объекта
 	SysData struct {
-		Ver           string     `json:"ver" db:"o.ver" default:"" comment:"Object version" readonly:"true"`
-		ChangeGUID    string     `json:"-" db:"o.change_guid" default:"00000000-0000-0000-0000-000000000000" comment:"Change GUID" readonly:"true"`
-		CreatedByID   uint64     `json:"-" db:"o.created_by" default:"0" comment:"The user ID who created the object" readonly:"true"`
-		CreatedBy     Person     `json:"createdBy,omitempty" db:"-" comment:"The user who created the object" readonly:"true"`
-		CreatedAt     *time.Time `json:"createdAt,omitempty" db:"o.created_at" default:"1970-01-01T00:00:00" comment:"Date of creation of object" readonly:"true"`
-		UpdatedByID   uint64     `json:"-" db:"o.updated_by" default:"0" comment:"The user ID who updated the object" readonly:"true"`
-		UpdatedBy     Person     `json:"updatedBy,omitempty" db:"-" comment:"The user who updated the object" readonly:"true"`
-		LifeStart     time.Time  `json:"lifeStart" db:"o.life_start" comment:"Object version life start" readonly:"true"`
-		LifeEnd       time.Time  `json:"lifeEnd" db:"o.life_end" comment:"Object version life end" readonly:"true"`
-		ActionComment string     `json:"actionComment,omitempty" db:"o.action_comment" default:"" comment:"Comment for version change"`
-		Changes       Changes    `json:"changes,omitempty" db:"-" comment:"Changes from the previous version" readonly:"true" ref:"objChanges"`
+		Ver           string     `json:"ver" db:"o.ver" dbSimple:"ver" default:"" comment:"Object version" readonly:"true"`
+		ChangeGUID    string     `json:"-" db:"o.change_guid" dbSimple:"change_guid" default:"00000000-0000-0000-0000-000000000000" comment:"Change GUID" readonly:"true"`
+		CreatedByID   uint64     `json:"-" db:"o.created_by" dbSimple:"created_by" default:"0" comment:"The user ID who created the object" readonly:"true"`
+		CreatedBy     Person     `json:"createdBy,omitempty" db:"-" dbSimple:"-" comment:"The user who created the object" readonly:"true"`
+		CreatedAt     *time.Time `json:"createdAt,omitempty" db:"o.created_at" dbSimple:"created_at" default:"1970-01-01T00:00:00" comment:"Date of creation of object" readonly:"true"`
+		UpdatedByID   uint64     `json:"-" db:"o.updated_by" dbSimple:"updated_by" default:"0" comment:"The user ID who updated the object" readonly:"true"`
+		UpdatedBy     Person     `json:"updatedBy,omitempty" db:"-" dbSimple:"-" comment:"The user who updated the object" readonly:"true"`
+		LifeStart     time.Time  `json:"lifeStart" db:"o.life_start" dbSimple:"life_start" comment:"Object version life start" readonly:"true"`
+		LifeEnd       time.Time  `json:"lifeEnd" db:"o.life_end" dbSimple:"life_end" comment:"Object version life end" readonly:"true"`
+		ActionComment string     `json:"actionComment,omitempty" db:"o.action_comment" dbSimple:"action_comment" default:"" comment:"Comment for version change"`
+		Changes       Changes    `json:"changes,omitempty" db:"-" dbSimple:"-" comment:"Changes from the previous version" readonly:"true" ref:"objChanges"`
 	}
 
 	// Персона создавшая или изменившая объект
 	Person struct {
-		ID   uint64 `json:"id,omitempty" db:"-" default:"0" comment:"ID of the user" readonly:"true"`
-		GUID string `json:"guid,omitempty" db:"-" default:"" comment:"GUID of the user" readonly:"true"`
-		Name string `json:"name,omitempty" db:"-" default:"" comment:"Name of the user" readonly:"true"`
+		ID   uint64 `json:"id,omitempty" db:"-" dbSimple:"-" default:"0" comment:"ID of the user" readonly:"true"`
+		GUID string `json:"guid,omitempty" db:"-" dbSimple:"-" default:"" comment:"GUID of the user" readonly:"true"`
+		Name string `json:"name,omitempty" db:"-" dbSimple:"-" default:"" comment:"Name of the user" readonly:"true"`
 	}
 
 	// Набор изменений
@@ -43,12 +43,12 @@ type (
 	}
 
 	StdHeader struct {
-		ID          uint64   `json:"id,omitempty" db:"o.id" comment:"ID" role:"primary" readonly:"true"`
-		Sys         *SysData `json:"sys,omitempty" db:"" comment:"System data" ref:"sysData"`
-		GUID        string   `json:"guid,omitempty" db:"o.guid" comment:"GUID" role:"key" readonly:"true"`
-		Name        string   `json:"name,omitempty" db:"o.name" comment:"Name"`
-		Description string   `json:"description,omitempty" db:"o.description" default:"" comment:"Description"`
-		Flags       Flags    `json:"flags,omitempty" db:"o.flags" default:"0" comment:"Flags"`
+		ID          uint64   `json:"id,omitempty" db:"o.id" dbSimple:"id" comment:"ID" role:"primary" readonly:"true"`
+		Sys         *SysData `json:"sys,omitempty" db:"" dbSimple:"" comment:"System data" ref:"sysData"`
+		GUID        string   `json:"guid,omitempty" db:"o.guid" dbSimple:"guid" comment:"GUID" role:"key" readonly:"true"`
+		Name        string   `json:"name,omitempty" db:"o.name" dbSimple:"name" comment:"Name"`
+		Description string   `json:"description,omitempty" db:"o.description" dbSimple:"description" default:"" comment:"Description"`
+		Flags       Flags    `json:"flags,omitempty" db:"o.flags" dbSimple:"flags" default:"0" comment:"Flags"`
 	}
 )
 
