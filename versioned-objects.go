@@ -48,6 +48,7 @@ type (
 		GUID        string   `json:"guid,omitempty" db:"o.guid" dbSimple:"guid" comment:"GUID" role:"key" readonly:"true"`
 		Name        string   `json:"name,omitempty" db:"o.name" dbSimple:"name" comment:"Name"`
 		Description string   `json:"description,omitempty" db:"o.description" dbSimple:"description" default:"" comment:"Description"`
+		Notes       string   `json:"notes,omitempty" db:"o.notes" dbSimple:"notes" default:"" comment:"Notes"`
 		Flags       Flags    `json:"flags,omitempty" db:"o.flags" dbSimple:"flags" default:"0" comment:"Flags"`
 	}
 )
